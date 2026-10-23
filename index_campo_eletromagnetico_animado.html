@@ -1,0 +1,77 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Realidade Aumentada - Campo Eletromagnético</title>
+
+  <!-- A-Frame -->
+  <script src="https://aframe.io/releases/1.6.0/aframe.min.js"></script>
+
+  <!-- MindAR para reconhecimento do marcador -->
+  <script src="https://cdn.jsdelivr.net/npm/mind-ar@1.2.5/dist/mindar-image-aframe.prod.js"></script>
+
+  <!-- Componente que reproduz as animações embutidas no GLB -->
+  <script src="https://cdn.jsdelivr.net/npm/aframe-extras@7.5.4/dist/aframe-extras.min.js"></script>
+
+  <style>
+    html, body {
+      margin: 0;
+      width: 100%;
+      height: 100%;
+      overflow: hidden;
+    }
+  </style>
+</head>
+
+<body>
+  <a-scene
+    mindar-image="imageTargetSrc: https://raw.githubusercontent.com/UnidadeSolus/Electromagnetic-Induction-RA-3/main/IFRJ.mind;"
+    color-space="sRGB"
+    renderer="colorManagement: true, physicallyCorrectLights"
+    vr-mode-ui="enabled: false"
+    device-orientation-permission-ui="enabled: false">
+
+    <a-assets>
+      <img
+        id="card"
+        src="https://raw.githubusercontent.com/UnidadeSolus/Electromagnetic-Induction-RA-3/main/IFRJ.png"
+        crossorigin="anonymous" />
+
+      <!-- O nome do arquivo no GitHub precisa corresponder exatamente a este caminho -->
+      <a-asset-item
+        id="magneticFieldModel"
+        src="https://raw.githubusercontent.com/UnidadeSolus/Electromagnetic-Induction-RA-3/main/Campo_Eletromagnetico_Oscilante_Final.glb"
+        crossorigin="anonymous">
+      </a-asset-item>
+    </a-assets>
+
+    <a-camera
+      position="0 0 0"
+      look-controls="enabled: false">
+    </a-camera>
+
+    <a-entity mindar-image-target="targetIndex: 0">
+      <!-- Mantém o marcador visual como no projeto original -->
+      <a-plane
+        src="#card"
+        position="0 0 0"
+        height="0.552"
+        width="1"
+        rotation="0 0 0">
+      </a-plane>
+
+      <!-- Modelo GLB com reprodução da animação interna em loop -->
+      <a-gltf-model
+        id="magneticField"
+        src="#magneticFieldModel"
+        position="0 0 0.12"
+        rotation="0 0 0"
+        scale="0.15 0.15 0.15"
+        animation-mixer="clip: *; loop: repeat; timeScale: 1">
+      </a-gltf-model>
+    </a-entity>
+
+  </a-scene>
+</body>
+</html>
